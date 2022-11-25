@@ -77,8 +77,8 @@ class hire_rotation4 implements Runnable {
         catCafe.hire(C);
 
         if (!(catCafe.root.catEmployee.equals(C) && catCafe.root.senior.catEmployee.equals(B) && catCafe.root.senior.junior.catEmployee.equals(A))) {
-            throw new AssertionError("Left rotation did not work." +
-                    " Cat B should be root, Cat A should be B's junior and Cat C should be A's junior");
+            throw new AssertionError("Left and right rotations did not work." +
+                    " Cat C should be root, Cat B should be C's senior and Cat A should be B's junior");
         }
 
         if (catCafe.root.senior.parent != catCafe.root && catCafe.root.senior.junior.parent != catCafe.root.senior) {
@@ -113,4 +113,7 @@ public class A3_Tester2 {
         System.out.printf("%n%n%d of %d tests passed.%n", numPassed, tests.length);
     }
 }
+
+
+
 
