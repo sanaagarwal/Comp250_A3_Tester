@@ -2,6 +2,24 @@ package assignment3;
 
 import java.util.Arrays;
 
+class findMostSenior1 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 20, 40, 5, 85.0);
+
+        CatCafe catCafe = new CatCafe();
+        catCafe.hire(A);
+
+        if (!(catCafe.root.findMostSenior().equals(A))) {
+            throw new AssertionError("findMostSenior() did not return the correct value."
+                    + "\n Expected A but got "
+                    + catCafe.root.findMostSenior());
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
 class hire_rotation1 implements Runnable{
     public void run(){
         // example in the pdf
@@ -150,16 +168,17 @@ class hire_megaRotation implements Runnable{
 
         if (!(catCafe.root.catEmployee.equals(I))) {
             throw new AssertionError("Incorrect root." +
-                    "Cat I should be root but got " + catCafe.root.catEmployee.toString());
+                    "Cat I should be root but got " + catCafe.root.catEmployee);
         }
 
         CatCafe.CatNode current = catCafe.root;
+
         while (current.junior != null) {
             current = current.junior;
         }
         if (!(current.catEmployee.equals(H))) {
             throw new AssertionError("Incorrect leftmost node." +
-                    "Cat H should be leftmost node to the root but got " + current.catEmployee.toString());
+                    "Cat H should be leftmost node to the root but got " + current.catEmployee);
         }
 
         current = catCafe.root;
@@ -168,7 +187,7 @@ class hire_megaRotation implements Runnable{
         }
         if (!(current.catEmployee.equals(D))) {
             throw new AssertionError("Incorrect rightmost node." +
-                    "Cat D should be rightmost node to the root but got " + current.catEmployee.toString());
+                    "Cat D should be rightmost node to the root but got " + current.catEmployee);
         }
 
         if (catCafe.root.parent != null || catCafe.root.junior.parent != catCafe.root || catCafe.root.senior.parent != catCafe.root) {
@@ -178,21 +197,55 @@ class hire_megaRotation implements Runnable{
         if (!(catCafe.root.findMostSenior().equals(D) && catCafe.root.findMostJunior().equals(H))) {
             throw new AssertionError("findMostSenior() or findMostJunior() is not working correctly."
                     + "\n Expected D (most senior) and H (most junior) but got "
-                    + catCafe.root.findMostSenior().toString() + " and "
-                    + catCafe.root.findMostJunior().toString());
+                    + catCafe.root.findMostSenior() + " and "
+                    + catCafe.root.findMostJunior());
         }
 
         System.out.println("Test passed.");
     }
 }
 
+class retire_rotation1 implements Runnable{
+    @Override
+    public void run() {
+        // example from the pdf
+        Cat B = new Cat("Buttercup", 45, 53, 5, 85.0);
+        Cat C = new Cat("Chessur", 8, 23, 2, 250.0);
+        Cat JTO = new Cat("J. Thomas O’Malley", 21, 10, 9, 20.0);
+
+        CatCafe catCafe = new CatCafe();
+        catCafe.hire(B);
+        catCafe.hire(JTO);
+        catCafe.hire(C);
+
+        catCafe.retire(B);
+
+        if (!(catCafe.root.catEmployee.equals(C) && catCafe.root.junior.catEmployee.equals(JTO) && catCafe.root.senior == null)) {
+            throw new AssertionError("Retire did not work properly." +
+                    "\n Cat C should be root and Cat JTO should be its junior but got " + catCafe.root
+                    + " as root and " + catCafe.root.junior + " as its junior");
+        }
+
+        if (catCafe.root.parent != null || catCafe.root.junior.parent != catCafe.root) {
+            throw new AssertionError("Parent pointers of the 1st level are not set correctly.");
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
+
+
 public class A3_Tester2 {
     static String[] tests = {
+            "assignment3.findMostSenior1",
             "assignment3.hire_rotation1",
             "assignment3.hire_rotation2",
             "assignment3.hire_rotation3",
             "assignment3.hire_rotation4",
-            "assignment3.hire_megaRotation"
+            "assignment3.hire_megaRotation",
+            "assignment3.retire_rotation1",
+
     };
     public static void main(String[] args) {
         int numPassed = 0;
