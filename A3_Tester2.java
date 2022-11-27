@@ -347,8 +347,19 @@ class retire_megaRotation3 implements Runnable{
             throw new AssertionError("Retire rotations did not work properly for the 5th level.");
         }
 
-        System.out.println("Test passed.");
+        if (catCafe.root.parent != null || catCafe.root.junior.parent != catCafe.root || catCafe.root.senior.parent != catCafe.root) {
+            throw new AssertionError("Parent pointers of the 1st level are not set correctly.");
+        }
 
+        if (!catCafe.root.findMostSenior().equals(D))
+            throw new AssertionError("findMostSenior() did not work properly."
+                    + "\n Cat D should be the most senior but got " + catCafe.root.findMostSenior());
+
+        if (!catCafe.root.findMostJunior().equals(J))
+            throw new AssertionError("findMostJunior() did not work properly."
+                    + "\n Cat J should be the most junior but got " + catCafe.root.findMostJunior());
+
+        System.out.println("Test passed.");
     }
 }
 
