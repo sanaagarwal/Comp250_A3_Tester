@@ -288,6 +288,71 @@ class retire_rotation2 implements Runnable{
     }
 }
 
+class retire_megaRotation3 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 20, 40, 5, 85.0);
+        Cat B = new Cat("B", 15, 30, 2, 250.0);
+        Cat C = new Cat("C", 10, 35, 2, 250.0);
+        Cat D = new Cat("D", 8, 38, 5, 85.0);
+        Cat E = new Cat("E", 22, 39, 9, 20.0);
+        Cat F = new Cat("F", 25, 48, 9, 20.0);
+        Cat G = new Cat("G", 28, 45, 9, 20.0);
+        Cat H = new Cat("H", 60, 28, 9, 20.0);
+        Cat I = new Cat("I", 50, 50, 9, 20.0);
+        Cat J = new Cat("J", 70, 18, 9, 20.0);
+        Cat K = new Cat("K", 55, 20, 9, 20.0);
+        Cat L = new Cat("L", 59, 10, 9, 20.0);
+        Cat M = new Cat("M", 58, 25, 9, 20.0);
+
+        CatCafe catCafe = new CatCafe();
+        catCafe.hire(A);
+        catCafe.hire(B);
+        catCafe.hire(C);
+        catCafe.hire(D);
+        catCafe.hire(E);
+        catCafe.hire(F);
+        catCafe.hire(G);
+        catCafe.hire(H);
+        catCafe.hire(I);
+        catCafe.hire(J);
+        catCafe.hire(K);
+        catCafe.hire(L);
+        catCafe.hire(M);
+
+        catCafe.retire(I);
+
+        if (!(catCafe.root.catEmployee.equals(F))) {
+            throw new AssertionError("Retire did not work properly." +
+                    "\n Cat F should be the new root but got " + catCafe.root);
+        }
+
+        if (!(catCafe.root.junior.catEmployee.equals(G) && catCafe.root.senior.catEmployee.equals(A))) {
+            throw new AssertionError("Retire rotations did not work properly for the 2nd level.");
+        }
+
+        if (!(catCafe.root.junior.junior.catEmployee.equals(H) && catCafe.root.senior.senior.catEmployee.equals(D)) && catCafe.root.senior.junior.catEmployee.equals(E)) {
+            throw new AssertionError("Retire rotations did not work properly for the 3rd level.");
+        }
+
+        if (!(catCafe.root.junior.junior.junior.catEmployee.equals(J) && catCafe.root.junior.junior.senior.catEmployee.equals(M))
+                && catCafe.root.senior.senior.junior.catEmployee.equals(C) && catCafe.root.senior.senior.senior.catEmployee == null
+        && catCafe.root.senior.junior.junior.catEmployee == null && catCafe.root.senior.junior.senior.catEmployee == null) {
+            throw new AssertionError("Retire rotations did not work properly for the 4th level.");
+        }
+
+        if (!(catCafe.root.junior.junior.junior.junior == null && catCafe.root.junior.junior.junior.senior == null
+        && catCafe.root.junior.junior.senior.junior.catEmployee.equals(L) && catCafe.root.junior.junior.senior.senior.catEmployee.equals(K)
+        && catCafe.root.senior.senior.junior.junior.catEmployee.equals(B) && catCafe.root.senior.senior.junior.senior == null)) {
+            throw new AssertionError("Retire rotations did not work properly for the 5th level.");
+        }
+
+        System.out.println("Test passed.");
+
+    }
+}
+
+
 
 public class A3_Tester2 {
     static String[] tests = {
@@ -299,6 +364,7 @@ public class A3_Tester2 {
             "assignment3.hire_megaRotation",
             "assignment3.retire_rotation1",
             "assignment3.retire_rotation2",
+            "assignment3.retire_megaRotation3",
 
     };
     public static void main(String[] args) {
