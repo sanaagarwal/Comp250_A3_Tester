@@ -234,6 +234,59 @@ class retire_rotation1 implements Runnable{
     }
 }
 
+class retire_rotation2 implements Runnable{
+    @Override
+    public void run() {
+        // example from the pdf continued
+        Cat C = new Cat("Chessur", 8, 23, 2, 250.0);
+        Cat J = new Cat("Jonesy", 0, 21, 12, 30.0);
+        Cat JJ = new Cat("JIJI", 156, 17, 1, 30.0);
+        Cat JTO = new Cat("J. Thomas O’Malley", 21, 10, 9, 20.0);
+        Cat MrsN = new Cat("Mrs. Norris", 100, 68, 15, 115.0);
+
+        CatCafe catCafe = new CatCafe();
+        catCafe.hire(C);
+        catCafe.hire(JTO);
+        catCafe.hire(JJ);
+        catCafe.hire(J);
+        catCafe.hire(MrsN);
+
+        catCafe.retire(MrsN);
+
+        if (!(catCafe.root.catEmployee.equals(C))) {
+            throw new AssertionError("Retire did not work properly." +
+                    "\n Cat C should be the new root but got " + catCafe.root);
+        }
+
+        if (!(catCafe.root.junior.catEmployee.equals(JJ) && catCafe.root.senior.catEmployee.equals(J))) {
+            throw new AssertionError("Retire did not work properly." +
+                    "\n Cat Jiji should be the C's junior and Cat Jonesy should be the C's senior but got "
+                    + catCafe.root.junior + " as the junior and " + catCafe.root.senior + " as the senior");
+        }
+
+        if (!(catCafe.root.junior.senior.catEmployee.equals(JTO) && catCafe.root.junior.junior == null)) {
+            throw new AssertionError("Retire did not work properly." +
+                    "\n Cat JTO should be the JJ's senior and JJ should not have a junior but got "
+                    + catCafe.root.junior.senior + " as the senior and " + catCafe.root.junior.junior + " as the junior");
+        }
+
+        if (!(catCafe.root.senior.senior == null && catCafe.root.senior.junior == null)) {
+            throw new AssertionError("Retire did not work properly." +
+                    "\n Jonesy should not have any juniors or seniors but got "
+                    + catCafe.root.senior.senior + " as the senior and " + catCafe.root.senior.junior + " as the junior");
+        }
+
+        if (catCafe.root.parent != null || catCafe.root.junior.parent != catCafe.root || catCafe.root.senior.parent != catCafe.root) {
+            throw new AssertionError("Parent pointers of the 1st level are not set correctly.");
+        }
+
+        if (catCafe.root.junior.senior.parent != catCafe.root.junior) {
+            throw new AssertionError("Parent pointers of 2nd level are not set correctly.");
+        }
+
+        System.out.println("Test passed.");
+    }
+}
 
 
 public class A3_Tester2 {
@@ -245,6 +298,7 @@ public class A3_Tester2 {
             "assignment3.hire_rotation4",
             "assignment3.hire_megaRotation",
             "assignment3.retire_rotation1",
+            "assignment3.retire_rotation2",
 
     };
     public static void main(String[] args) {
