@@ -5,7 +5,7 @@ This a tester created for the various methods on Assignment 3 CatCafe for COMP 2
 So far it has testers for:
 1. `hire()` to test rotations
 2. `retire()` to test rotations
-3. `findMostSenior()` and `findMostJunior`
+3. `findMostSenior()` and `findMostJunior()`
 4. `CatCafe (CatCafe cafe)` constructor
 
 ## How to use:
