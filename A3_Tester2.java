@@ -1,5 +1,6 @@
 package assignment3;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 class findMostSenior1 implements Runnable{
@@ -621,7 +622,179 @@ class hire_retire1 implements Runnable{
     }
 }
 
+class hallOfFame1 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 20, 40, 5, 85.0);
+        Cat B = new Cat("B", 15, 30, 2, 250.0);
+        Cat C = new Cat("C", 10, 35, 2, 250.0);
+        Cat D = new Cat("D", 8, 38, 5, 85.0);
 
+        CatCafe catCafe = new CatCafe();
+        catCafe.hire(A);
+        catCafe.hire(B);
+        catCafe.hire(C);
+        catCafe.hire(D);
+
+        ArrayList<Cat> hallOfFameExpected = new ArrayList<>();
+        hallOfFameExpected.add(A);
+        hallOfFameExpected.add(D);
+        hallOfFameExpected.add(C);
+        hallOfFameExpected.add(B);
+
+        ArrayList<Cat> hallOfFame = catCafe.buildHallOfFame(6);
+
+        if (!(hallOfFame.size() == 4)) {
+            throw new AssertionError("buildHallOfFame() did not work properly when numOfCatsToHonor" +
+                    " is less than the number of cats in the cafe" +
+                    "\n Expected size of the hall of fame is 4 but got " + hallOfFameExpected.size());
+        }
+
+        for (int i = 0; i < hallOfFameExpected.size(); i++) {
+            if (!hallOfFame.get(i).equals(hallOfFameExpected.get(i))) {
+                throw new AssertionError("buildHallOfFame() did not work properly when numOfCatsToHonor" +
+                        " is less than the number of cats in the cafe" +
+                        "\n Expected " + hallOfFameExpected.get(i) + " but got " + hallOfFame.get(i));
+            }
+        }
+
+        System.out.println("Test passed.");
+
+    }
+}
+
+class hallOfFame2 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 20, 40, 5, 85.0);
+        Cat B = new Cat("B", 15, 30, 2, 250.0);
+        Cat C = new Cat("C", 10, 35, 2, 250.0);
+        Cat D = new Cat("D", 8, 38, 5, 85.0);
+        Cat E = new Cat("E", 22, 39, 9, 20.0);
+
+        CatCafe catCafe = new CatCafe();
+        catCafe.hire(A);
+        catCafe.hire(B);
+        catCafe.hire(C);
+        catCafe.hire(D);
+        catCafe.hire(E);
+
+        catCafe.retire(A);
+        catCafe.retire(D);
+
+        ArrayList<Cat> hallOfFameExpected = new ArrayList<>();
+        hallOfFameExpected.add(E);
+        hallOfFameExpected.add(C);
+
+        ArrayList<Cat> hallOfFame = catCafe.buildHallOfFame(2);
+
+        if (!(hallOfFame.size() == 2)) {
+            throw new AssertionError("buildHallOfFame() did not work properly when numOfCatsToHonor" +
+                    " is equal to the number of cats in the cafe" +
+                    "\n Expected size of the hall of fame is 2 but got " + hallOfFameExpected.size());
+        }
+
+        for (int i = 0; i < hallOfFameExpected.size(); i++) {
+            if (!hallOfFame.get(i).equals(hallOfFameExpected.get(i))) {
+                throw new AssertionError("buildHallOfFame() did not work properly when numOfCatsToHonor" +
+                        " is equal to the number of cats in the cafe" +
+                        "\n Expected " + hallOfFameExpected.get(i) + " but got " + hallOfFame.get(i));
+            }
+        }
+
+        System.out.println("Test passed.");
+
+    }
+}
+
+class hallOfFame3 implements Runnable{
+    @Override
+    public void run() {
+
+        CatCafe catCafe = new CatCafe();
+
+        ArrayList<Cat> hallOfFameExpected = new ArrayList<>();
+
+        ArrayList<Cat> hallOfFame = catCafe.buildHallOfFame(2);
+
+        if (!(hallOfFame.size() == 0)) {
+            throw new AssertionError("buildHallOfFame() did not work properly when the cafe is empty." +
+                    "\n Expected size of the hall of fame is 0 but got " + hallOfFameExpected.size());
+        }
+
+        for (int i = 0; i < hallOfFameExpected.size(); i++) {
+            if (!hallOfFame.get(i).equals(hallOfFameExpected.get(i))) {
+                throw new AssertionError("buildHallOfFame() did not work properly when numOfCatsToHonor" +
+                        " is greater than the number of cats in the cafe" +
+                        "\n Expected " + hallOfFameExpected.get(i) + " but got " + hallOfFame.get(i));
+            }
+        }
+
+        System.out.println("Test passed.");
+
+    }
+}
+
+class hallOfFame4 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 20, 40, 5, 85.0);
+        Cat B = new Cat("B", 15, 30, 2, 250.0);
+        Cat C = new Cat("C", 10, 35, 2, 250.0);
+
+        CatCafe catCafe = new CatCafe();
+        catCafe.hire(A);
+        catCafe.hire(B);
+        catCafe.hire(C);
+
+        ArrayList<Cat> hallOfFame = catCafe.buildHallOfFame(2);
+
+        if (!(catCafe.root.catEmployee.equals(A) && catCafe.root.senior.catEmployee.equals(C) && catCafe.root.senior.junior.catEmployee.equals(B))) {
+            throw new AssertionError("The tree should be unchanged after the method call.");
+        }
+
+        if (!(hallOfFame.size() == 2)) {
+            throw new AssertionError("The hall of fame should contain 2 cats: A and C.");
+        }
+
+        System.out.println("Test passed.");
+
+    }
+}
+
+class hallOfFame5 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 20, 40, 5, 85.0);
+        Cat B = new Cat("B", 15, 30, 2, 250.0);
+        Cat C = new Cat("C", 10, 35, 2, 250.0);
+        Cat D = new Cat("D", 8, 38, 5, 85.0);
+        Cat E = new Cat("E", 22, 39, 9, 20.0);
+
+        CatCafe catCafe = new CatCafe();
+        catCafe.hire(A);
+        catCafe.hire(B);
+        catCafe.hire(C);
+        catCafe.hire(D);
+        catCafe.hire(E);
+
+        catCafe.retire(A);
+        catCafe.retire(D);
+
+        ArrayList<Cat> hallOfFame = catCafe.buildHallOfFame(3);
+
+        if (!(catCafe.root.catEmployee.equals(E) && catCafe.root.senior.catEmployee.equals(C) && catCafe.root.senior.junior.catEmployee.equals(B))) {
+            throw new AssertionError("The tree should be unchanged after the method call.");
+        }
+
+        if (!(hallOfFame.size() == 3)) {
+            throw new AssertionError("The hall of fame should contain 2 cats: A and C.");
+        }
+
+        System.out.println("Test passed.");
+
+    }
+}
 public class A3_Tester2 {
     static String[] tests = {
             "assignment3.findMostSenior1",
@@ -640,6 +813,11 @@ public class A3_Tester2 {
             "assignment3.retire_rotation2",
             "assignment3.retire_megaRotation3",
             "assignment3.hire_retire1",
+            "assignment3.hallOfFame1",
+            "assignment3.hallOfFame2",
+            "assignment3.hallOfFame3",
+            "assignment3.hallOfFame4",
+            "assignment3.hallOfFame5",
 
     };
     public static void main(String[] args) {
