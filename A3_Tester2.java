@@ -800,6 +800,11 @@ class retire_edgeCase7 implements Runnable {
                     "\n The node the method was called on (Cat A node) should be returned but got "
             + nodeReturned);
         }
+        
+        if (!(catCafe.root.senior.senior.senior.junior == null)){
+            throw new AssertionError("Retire did not work properly." +
+                    "\n Cat C should be removed from the tree.");
+        }
 
         System.out.println("Test passed.");
     }
