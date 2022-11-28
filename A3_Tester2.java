@@ -761,6 +761,50 @@ class retire_edgeCase6 implements Runnable {
     }
 }
 
+class retire_edgeCase7 implements Runnable {
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 20, 40, 5, 85.0);
+        Cat B = new Cat("B", 15, 20, 2, 250.0);
+        Cat C = new Cat("C", 18, 10, 12, 30.0);
+        Cat D = new Cat("D", 12, 5, 5, 85.0);
+        Cat E = new Cat("E", 22, 39, 9, 20.0);
+        Cat F = new Cat("F", 25, 48, 9, 20.0);
+        Cat G = new Cat("G", 28, 45, 9, 20.0);
+        Cat H = new Cat("H", 60, 28, 9, 20.0);
+        Cat I = new Cat("I", 50, 50, 9, 20.0);
+        Cat J = new Cat("J", 70, 18, 9, 20.0);
+        Cat K = new Cat("K", 55, 20, 9, 20.0);
+        Cat L = new Cat("L", 59, 10, 9, 20.0);
+        Cat M = new Cat("M", 58, 25, 9, 20.0);
+
+        CatCafe catCafe = new CatCafe();
+        catCafe.hire(A);
+        catCafe.hire(B);
+        catCafe.hire(C);
+        catCafe.hire(D);
+        catCafe.hire(E);
+        catCafe.hire(F);
+        catCafe.hire(G);
+        catCafe.hire(H);
+        catCafe.hire(I);
+        catCafe.hire(J);
+        catCafe.hire(K);
+        catCafe.hire(L);
+        catCafe.hire(M);
+
+        CatCafe.CatNode nodeReturned = catCafe.root.senior.senior.retire(C);
+
+        if (!(nodeReturned.catEmployee.equals(A))) {
+            throw new AssertionError("Retire did not return the correct node." +
+                    "\n The node the method was called on (Cat A node) should be returned but got "
+            + nodeReturned);
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
 
 class hire_retire1 implements Runnable{
     @Override
@@ -1210,6 +1254,7 @@ public class A3_Tester2 {
             "assignment3.retire_edgeCase4",
             "assignment3.retire_edgeCase5",
             "assignment3.retire_edgeCase6",
+            "assignment3.retire_edgeCase7",
             "assignment3.hire_retire1",
             "assignment3.hallOfFame1",
             "assignment3.hallOfFame2",
