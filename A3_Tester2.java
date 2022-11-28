@@ -1,7 +1,7 @@
 package assignment3;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Stack;
 
 class findMostSenior1 implements Runnable{
     @Override
@@ -93,8 +93,6 @@ class findMostJunior2 implements Runnable{
     }
 }
 
-
-
 class shallow_copy1 implements Runnable{
     @Override
     public void run() {
@@ -127,7 +125,6 @@ class shallow_copy1 implements Runnable{
         System.out.println("Test passed");
     }
 }
-
 
 class shallow_copy2 implements Runnable{
     @Override
@@ -549,6 +546,87 @@ class retire_megaRotation3 implements Runnable{
     }
 }
 
+class retire_edgeCase1 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 25, 33, 5, 85.0);
+        Cat B = new Cat("B", 35, 29, 2, 250.0);
+        Cat C = new Cat("C", 18, 12, 12, 30.0);
+        Cat D = new Cat("D", 12, 5, 5, 85.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+
+        CatCafe.CatNode returnValue = cafe.root.junior.retire(A);
+
+        if (!(returnValue.catEmployee.equals(B))) {
+            throw new AssertionError("Retire did return the correct node." +
+                    "\n The node the method was called on (Cat B node) should be returned but got"
+                    + cafe.root.junior);
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
+class retire_edgeCase2 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 25, 33, 5, 85.0);
+        Cat B = new Cat("B", 35, 29, 2, 250.0);
+        Cat C = new Cat("C", 18, 12, 12, 30.0);
+        Cat D = new Cat("D", 12, 5, 5, 85.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+
+        CatCafe.CatNode returnValue = cafe.root.retire(D);
+
+        if (!(returnValue.catEmployee.equals(A))) {
+            throw new AssertionError("Retire did return the correct node." +
+                    "\n The node the method was called on (Cat A node) should be returned but got "
+                    + returnValue);
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
+class retire_edgeCase3 implements Runnable{
+    @Override
+    public void run() {
+
+        Cat A = new Cat("A", 25, 33, 5, 85.0);
+        Cat B = new Cat("B", 35, 29, 2, 250.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+
+        cafe.root.retire(A);
+        cafe.root.retire(B);
+
+        if (!(cafe.root == null)) {
+            throw new AssertionError("Retire did not work properly." +
+                    "\n The root should be null but got " + cafe.root);
+        }
+
+        for (Cat c : cafe) {
+            if (c != null) {
+                throw new AssertionError("The cafe should be empty but got" + c);
+            }
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
 class hire_retire1 implements Runnable{
     @Override
     public void run() {
@@ -731,7 +809,6 @@ class hallOfFame3 implements Runnable{
         }
 
         System.out.println("Test passed.");
-
     }
 }
 
@@ -795,6 +872,184 @@ class hallOfFame5 implements Runnable{
 
     }
 }
+
+class budgetGroomingExpenses1 implements Runnable{
+    @Override
+    public void run() {
+
+        Cat A = new Cat("A", 25, 33, 5, 85.0);
+        Cat B = new Cat("B", 35, 29, 2, 250.0);
+        Cat C = new Cat("C", 18, 12, 12, 30.0);
+        Cat D = new Cat("D", 12, 5, 5, 85.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+
+        double budget = 85+250+85;
+
+        if (cafe.budgetGroomingExpenses(5) != budget) {
+            throw new AssertionError("budgetGroomingExpense() did not work properly." +
+                    "\n Expected 85.0 but got " + cafe.budgetGroomingExpenses(5));
+        }
+
+        cafe.retire(A);
+        cafe.retire(B);
+
+        budget = 85;
+
+        if (cafe.budgetGroomingExpenses(5) != budget) {
+            throw new AssertionError("budgetGroomingExpense() did not work properly." +
+                    "\n Expected 85.0 but got " + cafe.budgetGroomingExpenses(5));
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
+class budgetGroomingExpenses2 implements Runnable{
+    @Override
+    public void run() {
+
+        Cat A = new Cat("A", 25, 33, 5, 85.0);
+        Cat B = new Cat("B", 35, 29, 2, 250.0);
+        Cat C = new Cat("C", 18, 12, 12, 30.0);
+        Cat D = new Cat("D", 12, 5, 5, 85.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+
+        if (cafe.budgetGroomingExpenses(1) != 0) {
+            throw new AssertionError("budgetGroomingExpense() did not work properly." +
+                    "\n Expected 0.0 but got " + cafe.budgetGroomingExpenses(1));
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
+class budgetGroomingExpenses3 implements Runnable{
+    @Override
+    public void run() {
+
+        Cat A = new Cat("A", 25, 33, 5, 85.0);
+        Cat B = new Cat("B", 35, 29, 2, 250.0);
+        Cat C = new Cat("C", 18, 12, 12, 30.0);
+        Cat D = new Cat("D", 12, 5, 5, 85.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+
+        if (cafe.budgetGroomingExpenses(-5) != 0) {
+            throw new AssertionError("budgetGroomingExpense() did not work properly when " +
+                    "numOfDays is less than 0.");
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
+class budgetGroomingExpenses4 implements Runnable{
+    @Override
+    public void run() {
+
+        Cat A = new Cat("A", 25, 33, 5, 85.0);
+        Cat B = new Cat("B", 35, 29, 2, 250.0);
+        Cat C = new Cat("C", 18, 12, 12, 30.0);
+        Cat D = new Cat("D", 12, 5, 5, 85.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+
+        cafe.retire(A);
+        cafe.retire(B);
+        cafe.retire(C);
+
+        if (cafe.budgetGroomingExpenses(5) != 85) {
+            throw new AssertionError("budgetGroomingExpense() did not work properly." +
+                    "\n Expected 85.0 but got " + cafe.budgetGroomingExpenses(5));
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
+class iterator1 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 25, 33, 5, 85.0);
+        Cat B = new Cat("B", 35, 29, 2, 250.0);
+        Cat C = new Cat("C", 18, 12, 12, 30.0);
+        Cat D = new Cat("D", 12, 5, 5, 85.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+
+        Stack<Cat> expected = new Stack<>();
+        expected.push(B);
+        expected.push(A);
+        expected.push(C);
+        expected.push(D);
+
+        Stack<Cat> actual = new Stack<>();
+
+        for(var cat : cafe){
+            if(cat == null){
+                throw new AssertionError("The iterator should not return null.");
+            }
+            actual.push(cat);
+        }
+
+        if(!expected.equals(actual)){
+            throw new AssertionError("The iterator did not work properly.");
+        }
+
+        System.out.println("Test passed. ");
+
+    }
+}
+
+class iterator2 implements Runnable{
+    @Override
+    public void run() {
+
+        CatCafe cafe = new CatCafe();
+
+        Stack<Cat> expected = new Stack<>();
+
+        Stack<Cat> actual = new Stack<>();
+
+        for (Cat cat : cafe) {
+            if (cat == null) {
+                throw new AssertionError("The iterator should not return null because " +
+                        " .hasNext must return false when no non-null elements are left.");
+            }
+            actual.push(cat);
+        }
+
+        if(!expected.equals(actual)){
+            throw new AssertionError("The iterator did not work properly.");
+        }
+
+        System.out.println("Test passed. ");
+
+    }
+}
+
 public class A3_Tester2 {
     static String[] tests = {
             "assignment3.findMostSenior1",
@@ -812,13 +1067,21 @@ public class A3_Tester2 {
             "assignment3.retire_rotation1",
             "assignment3.retire_rotation2",
             "assignment3.retire_megaRotation3",
+            "assignment3.retire_edgeCase1",
+            "assignment3.retire_edgeCase2",
+            "assignment3.retire_edgeCase3",
             "assignment3.hire_retire1",
             "assignment3.hallOfFame1",
             "assignment3.hallOfFame2",
             "assignment3.hallOfFame3",
             "assignment3.hallOfFame4",
             "assignment3.hallOfFame5",
-
+            "assignment3.budgetGroomingExpenses1",
+            "assignment3.budgetGroomingExpenses2",
+            "assignment3.budgetGroomingExpenses3",
+            "assignment3.budgetGroomingExpenses4",
+            "assignment3.iterator1",
+            "assignment3.iterator2"
     };
     public static void main(String[] args) {
         int numPassed = 0;
@@ -837,6 +1100,8 @@ public class A3_Tester2 {
         }
         System.out.printf("%n%n%d of %d tests passed.%n", numPassed, tests.length);
     }
+
+
 }
 
 
