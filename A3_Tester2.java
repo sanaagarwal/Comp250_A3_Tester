@@ -645,7 +645,7 @@ class retire_edgeCase2 implements Runnable{
         cafe.hire(C);
         cafe.hire(D);
 
-        CatCafe.CatNode returnValue = cafe.retire(D);
+        CatCafe.CatNode returnValue = cafe.root.retire(D);
 
         if (!(returnValue.catEmployee.equals(A))) {
             throw new AssertionError("Retire did return the correct node." +
