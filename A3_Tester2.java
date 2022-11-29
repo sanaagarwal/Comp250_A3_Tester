@@ -40,7 +40,6 @@ class findMostSenior2 implements Runnable{
 
         if (!(catCafe.root.findMostSenior().equals(B))) {
             throw new AssertionError("findMostSenior() did not return the correct value."
-                    + "\n Expected Cat B but got "
                     + catCafe.root.findMostSenior());
         }
 
@@ -1119,7 +1118,7 @@ class budgetGroomingExpenses1 implements Runnable{
 
         if (cafe.budgetGroomingExpenses(5) != budget) {
             throw new AssertionError("budgetGroomingExpense() did not work properly." +
-                    "\n Expected 85.0 but got " + cafe.budgetGroomingExpenses(5));
+                    "\n Expected 420.0 but got " + cafe.budgetGroomingExpenses(5));
         }
 
         cafe.retire(A);
