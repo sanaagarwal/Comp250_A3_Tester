@@ -291,7 +291,7 @@ class hire_rotation2 implements Runnable {
 
         if (!(catCafe.root.catEmployee.equals(B) && catCafe.root.junior.catEmployee.equals(A))) {
             throw new AssertionError("Left rotation did not work." +
-                    " Cat B should be root and Cat A should be  B's junior");
+                    " Cat B should be root and Cat A should be B's junior");
         }
 
         if (catCafe.root.junior.parent != catCafe.root || catCafe.root.parent != null) {
@@ -431,7 +431,7 @@ class hire_megaRotation implements Runnable{
         }
 
         if (catCafe.root.parent != null || catCafe.root.junior.parent != catCafe.root || catCafe.root.senior.parent != catCafe.root) {
-            throw new AssertionError("Parent pointers of the 1st level are not set correctly.");
+            throw new AssertionError("Parent pointers of the 1st and 2nd level are not set correctly.");
         }
 
         if (!(catCafe.root.findMostSenior().equals(D) && catCafe.root.findMostJunior().equals(H))) {
@@ -467,7 +467,7 @@ class retire_rotation1 implements Runnable{
         }
 
         if (catCafe.root.parent != null || catCafe.root.junior.parent != catCafe.root) {
-            throw new AssertionError("Parent pointers of the 1st level are not set correctly.");
+            throw new AssertionError("Parent pointers are not set correctly.");
         }
 
         System.out.println("Test passed.");
@@ -517,11 +517,11 @@ class retire_rotation2 implements Runnable{
         }
 
         if (catCafe.root.parent != null || catCafe.root.junior.parent != catCafe.root || catCafe.root.senior.parent != catCafe.root) {
-            throw new AssertionError("Parent pointers of the 1st level are not set correctly.");
+            throw new AssertionError("Parent pointers of the 1st and 2nd level are not set correctly.");
         }
 
         if (catCafe.root.junior.senior.parent != catCafe.root.junior) {
-            throw new AssertionError("Parent pointers of 2nd level are not set correctly.");
+            throw new AssertionError("Parent pointers of 3rd level are not set correctly.");
         }
 
         System.out.println("Test passed.");
@@ -591,7 +591,7 @@ class retire_megaRotation3 implements Runnable{
         }
 
         if (catCafe.root.parent != null || catCafe.root.junior.parent != catCafe.root || catCafe.root.senior.parent != catCafe.root) {
-            throw new AssertionError("Parent pointers of the 1st level are not set correctly.");
+            throw new AssertionError("Parent pointers of the 1st and 2nd level are not set correctly.");
         }
 
         if (!catCafe.root.findMostSenior().equals(D))
@@ -1212,6 +1212,30 @@ class budgetGroomingExpenses4 implements Runnable{
     }
 }
 
+class budgetGroomingExpenses5 implements Runnable{
+    @Override
+    public void run() {
+
+        Cat A = new Cat("A", 25, 33, 0, 85.0);
+        Cat B = new Cat("B", 35, 29, 2, 20.0);
+        Cat C = new Cat("C", 18, 12, 1, 10.0);
+        Cat D = new Cat("D", 12, 5, 5, 85.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+
+        if (cafe.budgetGroomingExpenses(1) != 95) {
+            throw new AssertionError("budgetGroomingExpense() did not work properly." +
+                    "\n Expected 95.0 but got " + cafe.budgetGroomingExpenses(5));
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
 class iterator1 implements Runnable{
     @Override
     public void run() {
@@ -1262,8 +1286,8 @@ class iterator2 implements Runnable{
 
         for (Cat cat : cafe) {
             if (cat == null) {
-                throw new AssertionError("The iterator should not return null because " +
-                        " .hasNext must return false when no non-null elements are left.");
+                throw new AssertionError("The iterator should not return null because" +
+                        " .hasNext() must return false when no non-null elements are left.");
             }
             actual.push(cat);
         }
@@ -1314,6 +1338,7 @@ public class A3_Tester2 {
             "assignment3.budgetGroomingExpenses2",
             "assignment3.budgetGroomingExpenses3",
             "assignment3.budgetGroomingExpenses4",
+            "assignment3.budgetGroomingExpenses5",
             "assignment3.iterator1",
             "assignment3.iterator2"
     };
