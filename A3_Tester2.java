@@ -71,7 +71,7 @@ class findMostSenior3 implements Runnable{
         if (!(mostSenior.equals(expected))) {
             throw new AssertionError("findMostSenior() did not return the correct value."
                     + "\n Expected Cat D but got "
-                    + catCafe.root.findMostSenior());
+                    + mostSenior);
         }
 
         System.out.println("Test passed.");
@@ -140,13 +140,13 @@ class findMostJunior3 implements Runnable{
         catCafe.hire(D);
         catCafe.hire(E);
 
-        Cat mostSenior = catCafe.root.senior.findMostJunior();
+        Cat mostJunior = catCafe.root.senior.findMostJunior();
         Cat expected = C;
 
-        if (!(mostSenior.equals(expected))) {
+        if (!(mostJunior.equals(expected))) {
             throw new AssertionError("findMostJunior() did not return the correct value."
                     + "\n Expected Cat C but got "
-                    + catCafe.root.findMostJunior());
+                    + mostJunior);
         }
 
         System.out.println("Test passed.");
