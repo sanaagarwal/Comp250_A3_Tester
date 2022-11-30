@@ -659,35 +659,6 @@ class retire_edgeCase2 implements Runnable{
     }
 }
 
-class retire_edgeCase3 implements Runnable{
-    @Override
-    public void run() {
-
-        Cat A = new Cat("A", 25, 33, 5, 85.0);
-        Cat B = new Cat("B", 35, 29, 2, 250.0);
-
-        CatCafe cafe = new CatCafe();
-        cafe.hire(A);
-        cafe.hire(B);
-
-        cafe.root.retire(A);
-        cafe.root.retire(B);
-
-        if (!(cafe.root == null)) {
-            throw new AssertionError("Retire did not work properly." +
-                    "\n The root should be null but got " + cafe.root);
-        }
-
-        for (Cat c : cafe) {
-            if (c != null) {
-                throw new AssertionError("The cafe should be empty but got" + c);
-            }
-        }
-
-        System.out.println("Test passed.");
-    }
-}
-
 class retire_edgeCase4 implements Runnable{
     @Override
     public void run() {
@@ -1349,7 +1320,6 @@ public class A3_Tester2 {
             "assignment3.retire_megaRotation3",
             "assignment3.retire_edgeCase1",
             "assignment3.retire_edgeCase2",
-            "assignment3.retire_edgeCase3",
             "assignment3.retire_edgeCase4",
             "assignment3.retire_edgeCase5",
             "assignment3.retire_edgeCase6",
