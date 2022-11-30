@@ -40,6 +40,7 @@ class findMostSenior2 implements Runnable{
 
         if (!(catCafe.root.findMostSenior().equals(B))) {
             throw new AssertionError("findMostSenior() did not return the correct value."
+                    + "\n Expected Cat B but got "
                     + catCafe.root.findMostSenior());
         }
 
@@ -165,6 +166,7 @@ class shallow_copy1 implements Runnable{
         cafe.hire(B);
         cafe.hire(C);
         cafe.hire(D);
+
 
         CatCafe copy = new CatCafe(cafe);
 
@@ -853,6 +855,32 @@ class retire_edgeCase8 implements Runnable {
     }
 }
 
+class retire_edgeCase9 implements Runnable {
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 10, 40, 5, 85.0);
+        Cat B = new Cat("B", 15, 20, 2, 250.0);
+        Cat C = new Cat("C", 18, 28, 12, 30.0);
+        Cat D = new Cat("D", 12, 45, 5, 85.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+
+        CatCafe.CatNode nodeReturned = cafe.root.junior.retire(C);
+
+        if (!(nodeReturned.catEmployee.equals(B))) {
+            throw new AssertionError("Retire did not return the correct node." +
+                    "\n The method must return the root of the tree obtained by removing Cat C from the latter." +
+                    "\n The new root should now be B but got " + nodeReturned);
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
 class hire_retire1 implements Runnable{
     @Override
     public void run() {
@@ -1327,6 +1355,7 @@ public class A3_Tester2 {
             "assignment3.retire_edgeCase6",
             "assignment3.retire_edgeCase7",
             "assignment3.retire_edgeCase8",
+            "assignment3.retire_edgeCase9",
             "assignment3.hire_retire1",
             "assignment3.hallOfFame1",
             "assignment3.hallOfFame2",
