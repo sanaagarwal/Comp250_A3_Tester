@@ -917,6 +917,10 @@ class retire_edgeCase10 implements Runnable {
             throw new AssertionError("Retire must return null when called on the same node as the " +
                     "cat but got " + nodeReturned);
         }
+        
+        if (cafe.root.junior == null) {
+            throw new AssertionError("Retire must not change the tree");
+        }
      
         if (!(cafe.root.catEmployee == B)) {
             throw new AssertionError("The root after retire must remain the same (Cat B).");
