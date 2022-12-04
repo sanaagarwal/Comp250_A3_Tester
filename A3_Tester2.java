@@ -723,7 +723,8 @@ class retire_edgeCase4 implements Runnable{
 
         if (!(cafe.root.catEmployee.equals(B) && cafe.root.senior.catEmployee.equals(C))) {
             throw new AssertionError("Retire did not work properly." +
-                    "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root);
+                   "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root 
+                                     + " as the root and " + cafe.root.senior + " as its senior." );
         }
 
         System.out.println("Test passed.");
@@ -748,7 +749,8 @@ class retire_edgeCase5 implements Runnable {
 
         if (!(cafe.root.catEmployee.equals(B) && cafe.root.senior.catEmployee.equals(C))) {
             throw new AssertionError("Retire did not work properly." +
-                    "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root);
+                    "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root 
+                                     + " as the root and " + cafe.root.senior + " as its senior." );
         }
 
         System.out.println("Test passed.");
