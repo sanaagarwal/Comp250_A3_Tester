@@ -628,13 +628,13 @@ class retire_megaRotation3 implements Runnable{
 
         if (!(catCafe.root.junior.junior.junior.catEmployee.equals(J) && catCafe.root.junior.junior.senior.catEmployee.equals(M))
                 && catCafe.root.senior.senior.junior.catEmployee.equals(C) && catCafe.root.senior.senior.senior.catEmployee == null
-        && catCafe.root.senior.junior.junior.catEmployee == null && catCafe.root.senior.junior.senior.catEmployee == null) {
+                && catCafe.root.senior.junior.junior.catEmployee == null && catCafe.root.senior.junior.senior.catEmployee == null) {
             throw new AssertionError("Retire rotations did not work properly for the 4th level.");
         }
 
         if (!(catCafe.root.junior.junior.junior.junior == null && catCafe.root.junior.junior.junior.senior == null
-        && catCafe.root.junior.junior.senior.junior.catEmployee.equals(L) && catCafe.root.junior.junior.senior.senior.catEmployee.equals(K)
-        && catCafe.root.senior.senior.junior.junior.catEmployee.equals(B) && catCafe.root.senior.senior.junior.senior == null)) {
+                && catCafe.root.junior.junior.senior.junior.catEmployee.equals(L) && catCafe.root.junior.junior.senior.senior.catEmployee.equals(K)
+                && catCafe.root.senior.senior.junior.junior.catEmployee.equals(B) && catCafe.root.senior.senior.junior.senior == null)) {
             throw new AssertionError("Retire rotations did not work properly for the 5th level.");
         }
 
@@ -723,8 +723,8 @@ class retire_edgeCase4 implements Runnable{
 
         if (!(cafe.root.catEmployee.equals(B) && cafe.root.senior.catEmployee.equals(C))) {
             throw new AssertionError("Retire did not work properly." +
-                   "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root 
-                                     + " as the root and " + cafe.root.senior + " as its senior." );
+                    "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root
+                    + " as the root and " + cafe.root.senior + " as its senior." );
         }
 
         System.out.println("Test passed.");
@@ -749,8 +749,8 @@ class retire_edgeCase5 implements Runnable {
 
         if (!(cafe.root.catEmployee.equals(B) && cafe.root.senior.catEmployee.equals(C))) {
             throw new AssertionError("Retire did not work properly." +
-                    "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root 
-                                     + " as the root and " + cafe.root.senior + " as its senior." );
+                    "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root
+                    + " as the root and " + cafe.root.senior + " as its senior." );
         }
 
         System.out.println("Test passed.");
@@ -819,7 +819,7 @@ class retire_edgeCase7 implements Runnable {
         if (!(nodeReturned.catEmployee.equals(A))) {
             throw new AssertionError("Retire did not return the correct node." +
                     "\n The node the method was called on (Cat A node) should be returned but got "
-            + nodeReturned);
+                    + nodeReturned);
         }
 
         if (!(catCafe.root.senior.senior.senior.junior == null)){
@@ -895,6 +895,35 @@ class retire_edgeCase9 implements Runnable {
             throw new AssertionError("Retire did not return the correct node." +
                     "\n The method must return the root of the tree obtained by removing Cat C from the latter." +
                     "\n The new root should now be B but got " + nodeReturned);
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
+class retire_edgeCase10 implements Runnable {
+    @Override
+    public void run() {
+        Cat B = new Cat("Buttercup", 45, 53, 5, 85.0);
+        Cat JJ = new Cat("JIJI", 156, 17, 1, 30.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(B);
+        cafe.hire(JJ);
+
+        CatCafe.CatNode nodeReturned = cafe.root.junior.retire(JJ);
+
+        if (!(nodeReturned == null)) {
+            throw new AssertionError("Retire must return null when called on the same node as the " +
+                    "cat but got " + nodeReturned);
+        }
+
+        if (cafe.root.junior != null) {
+            throw new AssertionError("Retire must set the junior field to null.");
+        }
+
+        if (!(cafe.root.catEmployee == B)) {
+            throw new AssertionError("The root after retire must remain the same (Cat B).");
         }
 
         System.out.println("Test passed.");
@@ -1376,6 +1405,7 @@ public class A3_Tester2 {
             "assignment3.retire_edgeCase7",
             "assignment3.retire_edgeCase8",
             "assignment3.retire_edgeCase9",
+            "assignment3.retire_edgeCase10",
             "assignment3.hire_retire1",
             "assignment3.hallOfFame1",
             "assignment3.hallOfFame2",
@@ -1407,10 +1437,4 @@ public class A3_Tester2 {
         }
         System.out.printf("%n%n%d of %d tests passed.%n", numPassed, tests.length);
     }
-
-
 }
-
-
-
-
