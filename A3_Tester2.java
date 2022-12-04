@@ -1229,7 +1229,7 @@ class budgetGroomingExpenses5 implements Runnable{
 
         if (cafe.budgetGroomingExpenses(1) != 95) {
             throw new AssertionError("budgetGroomingExpense() did not work properly." +
-                    "\n Expected 95.0 but got " + cafe.budgetGroomingExpenses(5));
+                    "\n Expected 95.0 but got " + cafe.budgetGroomingExpenses(1));
         }
 
         System.out.println("Test passed.");
