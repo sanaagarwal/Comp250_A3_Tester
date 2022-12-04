@@ -261,6 +261,53 @@ class shallow_copy3 implements Runnable {
     }
 }
 
+class shallow_copy4 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 10, 40, 5, 85.0);
+        Cat B = new Cat("B", 15, 20, 2, 250.0);
+        Cat C = new Cat("C", 18, 28, 12, 30.0);
+        Cat D = new Cat("D", 12, 45, 5, 85.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+
+        cafe.retire(B);
+
+        CatCafe copy = new CatCafe(cafe);
+
+        if ((copy == cafe)) {
+            System.out.println("Shallow copy did not create a new CatCafe object");
+        }
+
+        boolean CatNodeA = copy.root.senior == cafe.root.senior;
+        boolean CatNodeB = copy.root.junior == cafe.root.junior;
+        boolean CatNodeD = copy.root == cafe.root;
+        boolean CatNodeNull = copy.root.junior.senior == null && cafe.root.junior.senior == null;
+
+        if (CatNodeA || CatNodeD || CatNodeB) {
+            throw new AssertionError("Shallow copy did not create new CatNode objects");
+        }
+
+        boolean CatA = copy.root.senior.catEmployee == A && cafe.root.senior.catEmployee == A;
+        boolean CatB = copy.root.junior.catEmployee == C && cafe.root.junior.catEmployee == C;
+        boolean CatD = copy.root.catEmployee == D && cafe.root.catEmployee == D;
+
+        if (!(CatA || CatB || CatD)) {
+            throw new AssertionError("Shallow copy created new Cat objects or the tree structure is incorrect.");
+        }
+
+        if (!CatNodeNull) {
+            throw new AssertionError("Incorrect tree structure. root.junior.senior should be null for " +
+                    "both the original and the copy.");
+        }
+
+        System.out.println("Test passed");
+    }
+}
 class hire_rotation1 implements Runnable{
     public void run(){
         // example in the pdf
@@ -676,8 +723,7 @@ class retire_edgeCase4 implements Runnable{
 
         if (!(cafe.root.catEmployee.equals(B) && cafe.root.senior.catEmployee.equals(C))) {
             throw new AssertionError("Retire did not work properly." +
-                    "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root 
-                                     + " as the root and " + cafe.root.senior + " as its senior.);
+                    "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root);
         }
 
         System.out.println("Test passed.");
@@ -702,8 +748,7 @@ class retire_edgeCase5 implements Runnable {
 
         if (!(cafe.root.catEmployee.equals(B) && cafe.root.senior.catEmployee.equals(C))) {
             throw new AssertionError("Retire did not work properly." +
-                    "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root 
-                                     + " as the root and " + cafe.root.senior + " as its senior." );
+                    "\n The root should be Cat B and the senior should be Cat C but got " + cafe.root);
         }
 
         System.out.println("Test passed.");
@@ -1258,7 +1303,7 @@ class iterator1 implements Runnable{
 
         Stack<Cat> actual = new Stack<>();
 
-        for(var cat : cafe){
+        for(Cat cat : cafe){
             if(cat == null){
                 throw new AssertionError("The iterator should not return null.");
             }
@@ -1312,6 +1357,7 @@ public class A3_Tester2 {
             "assignment3.shallow_copy1",
             "assignment3.shallow_copy2",
             "assignment3.shallow_copy3",
+            "assignment3.shallow_copy4",
             "assignment3.hire_rotation1",
             "assignment3.hire_rotation2",
             "assignment3.hire_rotation3",
