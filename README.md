@@ -11,6 +11,7 @@ So far it has testers for:
 6. `buildHallOfFame()`
 7. `CatCafeIterator()`
 8. `budgetGroomingExpenses()` edge cases
+9. `getGroomingSchedule()`
 
 ## How to use:
 You can either download the `A3_Tester2.java` file and add it in your main package, or copy the code and create your own class. If you create your own class, make sure to rename the class that has the main method in it as well.
