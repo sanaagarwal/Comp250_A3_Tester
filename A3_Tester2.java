@@ -308,6 +308,7 @@ class shallow_copy4 implements Runnable{
         System.out.println("Test passed");
     }
 }
+
 class hire_rotation1 implements Runnable{
     public void run(){
         // example in the pdf
@@ -917,11 +918,11 @@ class retire_edgeCase10 implements Runnable {
             throw new AssertionError("Retire must return null when called on the same node as the " +
                     "cat but got " + nodeReturned);
         }
-        
+
         if (cafe.root.junior == null) {
             throw new AssertionError("Retire must not change the tree");
         }
-     
+
         if (!(cafe.root.catEmployee == B)) {
             throw new AssertionError("The root after retire must remain the same (Cat B).");
         }
@@ -1377,6 +1378,195 @@ class iterator2 implements Runnable{
     }
 }
 
+class getGroomingSchedule1 implements Runnable{
+    @Override
+    public void run() {
+        // testing for when one cat has 0 days (must be included in week 0)
+        Cat A = new Cat("A", 30, 50, 0, 85.0);
+        Cat B = new Cat("B", 20, 30, 3, 250.0);
+        Cat C = new Cat("C", 25, 20,17 , 30.0);
+        Cat D = new Cat("D", 10, 25, 20, 30.0);
+        Cat E = new Cat("E", 38, 60, 1, 30.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+        cafe.hire(E);
+
+        ArrayList<ArrayList<Cat>> expected = new ArrayList<>();
+        ArrayList<Cat> week0 = new ArrayList<>();
+        ArrayList<Cat> week1 = new ArrayList<>();
+        ArrayList<Cat> week2 = new ArrayList<>();
+
+        week0.add(E);
+        week0.add(A);
+        week0.add(B);
+        week2.add(C);
+        week2.add(D);
+
+        expected.add(week0);
+        expected.add(week1);
+        expected.add(week2);
+
+        ArrayList<ArrayList<Cat>> result = cafe.getGroomingSchedule();
+
+        if (expected.size() !=result.size()){
+            System.out.println("Expected : " + expected);
+            System.out.println("Got : " + result);
+            throw new AssertionError("Test failed for grooming schedule. size of output array does not match size of expected output");
+
+        }
+        for (int i =0; i<3; i+=1){
+            ArrayList<Cat> expectedCat = expected.get(i);
+            ArrayList<Cat> resultCat = result.get(i);
+
+            for (int j=0; j<expectedCat.size(); j++) {
+                if (!(expectedCat.get(j).equals(resultCat.get(j)))) {
+                    throw new AssertionError("Test failed for grooming schedule. Expected "+ expectedCat.toString() +
+                            " in week " + i + " but got " + resultCat.toString());
+
+                }
+            }
+        }
+        System.out.println("Test passed.");
+    }
+}
+
+class getGroomingSchedule2 implements Runnable{
+    @Override
+    public void run() {
+        // testing for when one cat has 7 and 14 days (must be included in week 1 and 2 respectively)
+        Cat A = new Cat("A", 30, 50, 5, 85.0);
+        Cat B = new Cat("B", 20, 30, 7, 250.0);
+        Cat C = new Cat("C", 25, 20,12 , 30.0);
+        Cat D = new Cat("D", 10, 25, 14, 30.0);
+        Cat E = new Cat("E", 38, 60, 20, 30.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+        cafe.hire(E);
+
+        ArrayList<ArrayList<Cat>> expected = new ArrayList<>();
+        ArrayList<Cat> week0 = new ArrayList<>();
+        ArrayList<Cat> week1 = new ArrayList<>();
+        ArrayList<Cat> week2 = new ArrayList<>();
+
+        week0.add(A);
+        week1.add(C);
+        week1.add(B);
+        week2.add(E);
+        week2.add(D);
+
+        expected.add(week0);
+        expected.add(week1);
+        expected.add(week2);
+
+        ArrayList<ArrayList<Cat>> result = cafe.getGroomingSchedule();
+
+        if (expected.size() !=result.size()){
+            System.out.println("Expected : " + expected);
+            System.out.println("Got : " + result);
+            throw new AssertionError("Test failed for grooming schedule. size of output array does not match size of expected output");
+
+        }
+        for (int i =0; i<3; i+=1){
+            ArrayList<Cat> expectedCat = expected.get(i);
+            ArrayList<Cat> resultCat = result.get(i);
+
+            for (int j=0; j<expectedCat.size(); j++) {
+                if (!(expectedCat.get(j).equals(resultCat.get(j)))) {
+                    throw new AssertionError("Test failed for grooming schedule. Expected "+ expectedCat.toString() +
+                            " in week " + i + " but got " + resultCat.toString());
+
+                }
+            }
+        }
+        System.out.println("Test passed.");
+    }
+}
+
+class getGroomingSchedule3 implements Runnable{
+    @Override
+    public void run() {
+        Cat A = new Cat("A", 30, 50, 5, 85.0);
+        Cat B = new Cat("B", 20, 30, 12, 250.0);
+        Cat C = new Cat("C", 25, 20,14, 30.0);
+        Cat D = new Cat("D", 10, 25, 16, 30.0);
+        Cat E = new Cat("E", 38, 60, 21, 30.0);
+
+        CatCafe cafe = new CatCafe();
+        cafe.hire(A);
+        cafe.hire(B);
+        cafe.hire(C);
+        cafe.hire(D);
+        cafe.hire(E);
+
+        cafe.retire(A);
+        cafe.retire(B);
+
+        ArrayList<ArrayList<Cat>> expected = new ArrayList<>();
+        ArrayList<Cat> week0 = new ArrayList<>();
+        ArrayList<Cat> week1 = new ArrayList<>();
+        ArrayList<Cat> week2 = new ArrayList<>();
+        ArrayList<Cat> week3 = new ArrayList<>();
+
+        week2.add(C);
+        week2.add(D);
+        week3.add(E);
+
+        expected.add(week0);
+        expected.add(week1);
+        expected.add(week2);
+        expected.add(week3);
+
+        ArrayList<ArrayList<Cat>> result = cafe.getGroomingSchedule();
+
+        if (expected.size() !=result.size()){
+            System.out.println("Expected : " + expected);
+            System.out.println("Got : " + result);
+            throw new AssertionError("Test failed for grooming schedule. " +
+                    "size of output array does not match size of expected output");
+
+        }
+        for (int i =0; i<4; i+=1){
+            ArrayList<Cat> expectedCat = expected.get(i);
+            ArrayList<Cat> resultCat = result.get(i);
+
+            for (int j=0; j<expectedCat.size(); j++) {
+                if (!(expectedCat.get(j).equals(resultCat.get(j)))) {
+                    throw new AssertionError("Test failed for grooming schedule. Expected "+ expectedCat.toString() +
+                            " in week " + i + " but got " + resultCat.toString());
+
+                }
+            }
+        }
+        System.out.println("Test passed.");
+    }
+}
+
+class getGroomingSchedule4 implements Runnable{
+    @Override
+    public void run() {
+        CatCafe cafe = new CatCafe();
+
+        ArrayList<ArrayList<Cat>> result = cafe.getGroomingSchedule();
+
+        if (result.size() != 0){
+            throw new AssertionError("Test failed for grooming schedule. " +
+                    "Expected empty array but got " + result.toString());
+        }
+
+        System.out.println("Test passed.");
+    }
+}
+
+
+
 public class A3_Tester2 {
     static String[] tests = {
             "assignment3.findMostSenior1",
@@ -1418,7 +1608,11 @@ public class A3_Tester2 {
             "assignment3.budgetGroomingExpenses4",
             "assignment3.budgetGroomingExpenses5",
             "assignment3.iterator1",
-            "assignment3.iterator2"
+            "assignment3.iterator2",
+            "assignment3.getGroomingSchedule1",
+            "assignment3.getGroomingSchedule2",
+            "assignment3.getGroomingSchedule3",
+            "assignment3.getGroomingSchedule4",
     };
     public static void main(String[] args) {
         int numPassed = 0;
