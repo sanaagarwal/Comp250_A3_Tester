@@ -175,6 +175,7 @@ class shallow_copy1 implements Runnable{
         }
 
         boolean CatNodeA = copy.root.senior == cafe.root.senior;
+        System.out.println("CatNodeA: " + copy.root.senior);
         boolean CatNodeB = copy.root.junior.senior == cafe.root.junior.senior;
         boolean CatNodeC = copy.root.junior == cafe.root.junior;
         boolean CatNodeD = copy.root == cafe.root;
@@ -437,7 +438,7 @@ class hire_megaRotation implements Runnable{
         //                                                 B (15, 30)
 
 
-        // tree should end up looking like this (going from ;eft to right):
+        // tree should end up looking like this (going from left to right):
 
         //                                      D (8, 38)
         //                                      /           \
@@ -1556,10 +1557,12 @@ class getGroomingSchedule4 implements Runnable{
 
         ArrayList<ArrayList<Cat>> result = cafe.getGroomingSchedule();
 
-        if (result.size() != 0){
+        if (result.size() != 1){
             throw new AssertionError("Test failed for grooming schedule. " +
-                    "Expected empty array but got " + result.toString());
-        }
+                    "Expected empty array of array but got " + result.toString());
+        } 
+        // Here i'm not sure if the size is supposed to be 1 or 0
+        // so do it at your own discretion 
 
         System.out.println("Test passed.");
     }
