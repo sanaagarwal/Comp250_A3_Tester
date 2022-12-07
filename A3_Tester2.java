@@ -1557,7 +1557,7 @@ class getGroomingSchedule4 implements Runnable{
 
         ArrayList<ArrayList<Cat>> result = cafe.getGroomingSchedule();
 
-        if (result.size() != 1){
+        if (result.size() != 0){
             throw new AssertionError("Test failed for grooming schedule. " +
                     "Expected empty array of array but got " + result.toString());
         } 
