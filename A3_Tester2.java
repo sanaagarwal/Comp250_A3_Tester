@@ -1028,14 +1028,14 @@ class hallOfFame1 implements Runnable{
 
         if (!(hallOfFame.size() == 4)) {
             throw new AssertionError("buildHallOfFame() did not work properly when numOfCatsToHonor" +
-                    " is less than the number of cats in the cafe" +
+                    " is more than the number of cats in the cafe" +
                     "\n Expected size of the hall of fame is 4 but got " + hallOfFameExpected.size());
         }
 
         for (int i = 0; i < hallOfFameExpected.size(); i++) {
             if (!hallOfFame.get(i).equals(hallOfFameExpected.get(i))) {
                 throw new AssertionError("buildHallOfFame() did not work properly when numOfCatsToHonor" +
-                        " is less than the number of cats in the cafe" +
+                        " is more than the number of cats in the cafe" +
                         "\n Expected " + hallOfFameExpected.get(i) + " but got " + hallOfFame.get(i));
             }
         }
